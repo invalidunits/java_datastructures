@@ -1,0 +1,61 @@
+import java.lang.Integer;
+
+public class Lecture7A1 
+{
+
+    public static void mergeSort(int[] arr, int begin, int end)
+    {
+        int len = (end - begin);
+        if (len <= 1) return;
+
+        int middle = (begin + end)/2;
+        mergeSort(arr, begin, middle);
+        mergeSort(arr, middle, end);
+
+
+        if (arr[middle - 1] > arr[middle])
+        {
+            int[] temp = new int[end - begin];
+            int i = begin;
+            int j = middle;
+            for (int k = begin; k < end; k++)
+            {
+                if (i < middle && (j >= end || arr[i] <= arr[j]))
+                {
+                    temp[k - begin] = arr[i];
+                    i++;
+                }
+                else
+                {
+                    temp[k - begin] = arr[j];
+                    j++;
+                }
+            }
+
+            for (int k = begin; k < end; k++)
+            {
+                arr[k] = temp[k - begin];
+            }
+        }
+    }
+
+    public static void printArray(int[] arr, int begin, int end)
+    {
+        System.out.print("[");
+        for (int i = 0; i < arr.length; i++)
+        {
+            System.out.print(i == 0? " " : ", ");
+            System.out.print(arr[i]);
+        }
+        System.out.print(" ");
+        System.out.println("]");
+    }
+
+    public static void main(String[] args)
+    {
+        int[] x = {1, 6, -1, 7, 5};
+        mergeSort(x, 0, x.length);
+        printArray(x, 0, x.length);
+
+    }    
+}
